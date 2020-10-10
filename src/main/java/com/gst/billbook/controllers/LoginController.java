@@ -56,4 +56,26 @@ public class LoginController {
 		return "welcome";
 	}
 	
+	@GetMapping("/login")
+	public String showLoginForm(Model model) {
+	    UserDetails user = new UserDetails();
+	    model.addAttribute("user", user);
+	     
+	    return "login";
+	}
+		
+	@PostMapping("/login")
+	public String processLogin(@ModelAttribute("user") UserDetails userDetails) {
+		org.springframework.security.core.userdetails.UserDetails user = jdbcUserDetailsManager.loadUserByUsername(userDetails.getUsername());
+		
+		if(user==null)
+			return "login";
+		
+		if(user.getUsername().equals(userDetails.getUsername()) 
+				&& user.getPassword().equals(passwordEncoder.encode(userDetails.getPassword())))
+			return "welcome";
+		else
+			return "login";
+	}
+	
 }

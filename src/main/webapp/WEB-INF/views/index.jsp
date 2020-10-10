@@ -5,8 +5,8 @@
     <div>
         <div>
             <h1>Welcome to Bill book World</h1>
-            Add more user by clicking on <strong><a href="register">Register</a></strong> button.
-            Click on <strong><a href="logout">Log out</a></strong> for going out of application.
+            
+            <a href="./logout">Log out</a>
         </div>
     </div>
 </body>
