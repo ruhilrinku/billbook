@@ -1,5 +1,7 @@
 package com.gst.billbook.repository;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +21,6 @@ public interface InvoiceDetailsRepository extends JpaRepository<InvoiceDetails, 
 	@Query(nativeQuery = true, value = "select * from invoice_item_map where invoice_number = ?1")
 	public Set<InvoiceItems> getInvoiceItems(int invoiceNumber);
 	
+	@Query(nativeQuery = true, value = "select invoice_number, invoice_date, buyer_gstn, buyer_name, pos, taxable_amount, total_amount from invoice_details where invoice_date between ?1 and ?2")
+	public List<Object[]> getInvoiceDetailForPeriod(Date invoiceStartDate, Date invoiceEndDate);
 }

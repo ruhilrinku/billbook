@@ -1,10 +1,13 @@
 package com.gst.billbook.service;
 
+import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import com.gst.billbook.model.InvoiceDetailsModel;
 import com.gst.billbook.model.InvoiceItem;
 import com.gst.billbook.model.InvoiceTransaction;
+import com.gst.billbook.model.SalesInvoice;
 
 public interface InvoiceDetailsService {
 	
@@ -17,4 +20,6 @@ public interface InvoiceDetailsService {
 	public Set<InvoiceTransaction> getInvoiceTransactions(int invoiceNumber);
 	
 	public Set<InvoiceItem> getInvoiceItems(int invoiceNumber);
+	
+	public List<SalesInvoice> getInvoiceList(Date fromDate, Date toDate);
 }

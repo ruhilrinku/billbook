@@ -1,6 +1,9 @@
 package com.gst.billbook.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -16,6 +19,7 @@ import com.gst.billbook.dao.InvoiceTransactionSummary;
 import com.gst.billbook.model.InvoiceDetailsModel;
 import com.gst.billbook.model.InvoiceItem;
 import com.gst.billbook.model.InvoiceTransaction;
+import com.gst.billbook.model.SalesInvoice;
 import com.gst.billbook.repository.InvoiceDetailsRepository;
 
 @Service
@@ -263,6 +267,34 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			LOGGER.error("Exception while fetching Invoice Item details: ", e);
 		}
 		return invoiceItemSet;
+	}
+
+	@Override
+	public List<SalesInvoice> getInvoiceList(Date fromDate, Date toDate) {
+		List<SalesInvoice> salesInvoiceList = new ArrayList<SalesInvoice>();  
+		
+		try {
+			List<Object[]> salesInvoices = invoiceDetailsRepo.getInvoiceDetailForPeriod(fromDate, toDate);
+			for(Object[] object: salesInvoices) {
+				SalesInvoice invoice = new SalesInvoice();
+				invoice.setInvoiceNumber(object[0]==null ? null : (Integer)object[0]);
+				invoice.setInvoiceDate(object[1]==null ? null : (Date)object[1]);
+				invoice.setBuyerGSTN(object[2]==null ? null : (String)object[2]);
+				invoice.setBuyerName(object[3]==null ? null : (String)object[3]);
+				invoice.setPos(object[4]==null ? null : (String)object[4]);
+				invoice.setTaxableAmount(object[5]==null ? null : (Double)object[5]);
+				invoice.setTotalAmount(object[6]==null ? null : (Double)object[6]);
+				invoice.setTotalTax(invoice.getTotalAmount() - invoice.getTaxableAmount());
+				
+				salesInvoiceList.add(invoice);
+			}
+			
+		} catch(Exception e) {
+			LOGGER.error("Exception while fetching Invoice Item details: ", e);
+			throw e;
+		}
+		
+		return salesInvoiceList;
 	}
 
 }
