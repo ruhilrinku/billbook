@@ -20,6 +20,9 @@ public class InvoiceItems{
 	@Column(name="item_code")
 	private String itemCode;
 	
+	@Column(name="item_name")
+	private String itemName;
+	
 	@Column(name="item_qty")
 	private int quantity;
 	
@@ -35,21 +38,22 @@ public class InvoiceItems{
 	@Column(name="sgst")
 	private double sgst;
 	
-	@Column(name="taxable_amount")
-	private double taxableAmount;
+	@Column(name="total_amount")
+	private double totalAmount;
 	
 	public InvoiceItems() {}
 	
-	public InvoiceItems(String itemCode, int quantity, double itemRate, double igst, double cgst, double sgst,
-			double taxableAmount) {
+	public InvoiceItems(String itemCode, String itemName, int quantity, double itemRate, double igst, double cgst, double sgst,
+			double totalAmount) {
 		super();
 		this.itemCode = itemCode;
+		this.itemName = itemName;
 		this.quantity = quantity;
 		this.itemRate = itemRate;
 		this.igst = igst;
 		this.cgst = cgst;
 		this.sgst = sgst;
-		this.taxableAmount = taxableAmount;
+		this.totalAmount = totalAmount;
 	}
 
 	public int getId() {
@@ -66,6 +70,14 @@ public class InvoiceItems{
 
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 
 	public int getQuantity() {
@@ -107,13 +119,13 @@ public class InvoiceItems{
 	public void setItemRate(double itemRate) {
 		this.itemRate = itemRate;
 	}
+
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 	
-	public double getTaxableAmount() {
-		return taxableAmount;
-	}
-
-	public void setTaxableAmount(double taxableAmount) {
-		this.taxableAmount = taxableAmount;
-	}
-
 }

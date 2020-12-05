@@ -96,7 +96,6 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			invoiceDetailsModel.setDiscount(details.getDiscount());
 			
 			invoiceDetailsModel.setSellerGstn(details.getSellerGstn());
-			invoiceDetailsModel.setStateCode(details.getStateCode());
 			invoiceDetailsModel.setPlaceOfSupply(details.getPlaceOfSupply());
 			
 			invoiceDetailsModel.setUpdateDate(details.getUpdateDate());
@@ -107,11 +106,13 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			for(InvoiceItems item: items) {
 				InvoiceItem invoiceItem = new InvoiceItem();
 				invoiceItem.setItemCode(item.getItemCode());
+				invoiceItem.setItemName(item.getItemName());
 				invoiceItem.setItemRate(item.getItemRate());
 				invoiceItem.setQuantity(item.getQuantity());
 				invoiceItem.setIgst(item.getIgst());
 				invoiceItem.setCgst(item.getCgst());
 				invoiceItem.setSgst(item.getSgst());
+				invoiceItem.setTotalAmount(item.getTotalAmount());
 				
 				invoiceItems.add(invoiceItem);
 			}
@@ -138,6 +139,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			
 			invoiceDetailsModel.setTaxableAmount(details.getTaxableAmount());
 			invoiceDetailsModel.setTotalAmount(details.getTotalAmount());
+			invoiceDetailsModel.setAmountPaid(details.getAmountPaid());
 			invoiceDetailsModel.setAmountDue(details.getAmountDue());
 			
 		} catch(Exception ex) {
@@ -153,6 +155,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 		try {
 			details.setInvoiceNumber(invoiceModel.getInvoiceNumber());
 			details.setInvoiceDate(invoiceModel.getInvoiceDate());
+			details.setUpdateDate(invoiceModel.getInvoiceDate());
 			details.setBuyerAddress(invoiceModel.getBuyerAddress());
 			details.setBuyerDeliveryAddress(invoiceModel.getBuyerDeliveryAddress());
 			details.setBuyerGstn(invoiceModel.getBuyerGstn());
@@ -161,29 +164,26 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			details.setDiscount(invoiceModel.getDiscount());
 			
 			details.setSellerGstn(invoiceModel.getSellerGstn());
-			details.setStateCode(invoiceModel.getStateCode());
 			details.setPlaceOfSupply(invoiceModel.getPlaceOfSupply());
-			
-			details.setUpdateDate(invoiceModel.getUpdateDate());
 			
 			Set<InvoiceItems> invoiceItems = new HashSet<InvoiceItems>();
 			Set<InvoiceItem> items = invoiceModel.getItems();
 	
-			double taxableAmount = 0;
 			double totalTaxableAmount = 0;
 			double totalAmount = 0;
-			double gstAmount = 0;
-	
 			
 			for(InvoiceItem item: items) {
 				InvoiceItems invoiceItem = new InvoiceItems();
 				invoiceItem.setItemCode(item.getItemCode());
+				invoiceItem.setItemName(item.getItemName());
 				invoiceItem.setItemRate(item.getItemRate());
 				invoiceItem.setQuantity(item.getQuantity());
 				invoiceItem.setIgst(item.getIgst());
 				invoiceItem.setCgst(item.getCgst());
 				invoiceItem.setSgst(item.getSgst());
+				invoiceItem.setTotalAmount(item.getTotalAmount());
 				
+				totalAmount = totalAmount + item.getTotalAmount();
 				//Taxable amount and GST Calculation
 				/*
 				 * taxableAmount = item.getQuantity() * item.getItemRate();
@@ -202,7 +202,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			}
 			
 			details.setTaxableAmount(totalTaxableAmount);
-			details.setTotalAmount(totalAmount);
+			details.setTotalAmount(invoiceModel.getTotalAmount());
 			details.setItems(invoiceItems);
 			
 			Set<InvoiceTransactionSummary> transactionSummarys = new HashSet<InvoiceTransactionSummary>();
@@ -213,7 +213,9 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 				InvoiceTransactionSummary summary = new InvoiceTransactionSummary();
 				summary.setAmountPaid(transaction.getAmountPaid());
 				summary.setPaymentMode(transaction.getPaymentMode());
-				summary.setPaymentDate(transaction.getPaymentDate());
+				//Setting Payment date As Invoice Date
+				summary.setPaymentDate(invoiceModel.getInvoiceDate());
+				
 				summary.setTransactionReference(transaction.getTransactionReference());
 				summary.setChequeClearanceDate(transaction.getChequeClearanceDate());
 				summary.setChequeNumber(transaction.getChequeNumber());
@@ -225,6 +227,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			}
 			
 			details.setInvoiceTransactions(transactionSummarys);
+			details.setAmountPaid(totalAmountPaid);
 			details.setAmountDue(totalAmount - totalAmountPaid);
 			
 		} catch(Exception ex) {
@@ -272,7 +275,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 				item.setIgst(invItem.getIgst());
 				item.setCgst(invItem.getCgst());
 				item.setSgst(invItem.getSgst());
-				item.setTaxableAmount(invItem.getTaxableAmount());
+				item.setTotalAmount(invItem.getTotalAmount());
 				
 				invoiceItemSet.add(item);
 				

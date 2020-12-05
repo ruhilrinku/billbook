@@ -22,7 +22,6 @@ public class InvoiceDetailsModel implements Serializable{
 	private String buyerName;
 	private String buyerAddress;
 	private String buyerDeliveryAddress;
-	private int stateCode;
 	private String placeOfSupply;
 	private double totalAmount;
 	private double amountPaid;
@@ -90,12 +89,6 @@ public class InvoiceDetailsModel implements Serializable{
 	}
 	public void setBuyerDeliveryAddress(String buyerDeliveryAddress) {
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
-	}
-	public int getStateCode() {
-		return stateCode;
-	}
-	public void setStateCode(int stateCode) {
-		this.stateCode = stateCode;
 	}
 	public String getPlaceOfSupply() {
 		return placeOfSupply;

@@ -25,7 +25,7 @@ public class InvoiceDetails {
 	@Column(name="invoice_number")
 	private int invoiceNumber;
 	
-	@Column(name="invoice_date")
+	@Column(name="invoice_date", columnDefinition = "DATE NOT NULL DEFAULT (DATE(CURRENT_TIMESTAMP))")
 	private Date invoiceDate;
 	
 	@Column(name="seller_gstn")
@@ -42,10 +42,7 @@ public class InvoiceDetails {
 	
 	@Column(name="buyer_delivery_address")
 	private String buyerDeliveryAddress;
-	
-	@Column(name="name_of_state")
-	private int stateCode;
-	
+		
 	@Column(name="pos")
 	private String placeOfSupply;
 	
@@ -61,7 +58,7 @@ public class InvoiceDetails {
 	@Column(name="amount_due")
 	private double amountDue;
 	
-	@Column(name="updated_date")
+	@Column(name="updated_date", columnDefinition = "DATE DEFAULT (DATE(CURRENT_TIMESTAMP))")
 	private Date updateDate;
 	
 	@Column(name="discount")
@@ -91,7 +88,6 @@ public class InvoiceDetails {
 		this.buyerName = buyerName;
 		this.buyerAddress = buyerAddress;
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
-		this.stateCode = stateCode;
 		this.placeOfSupply = placeOfSupply;
 		this.totalAmount = totalAmount;
 		this.termAndConditions = termAndConditions;
@@ -172,14 +168,6 @@ public class InvoiceDetails {
 
 	public void setBuyerDeliveryAddress(String buyerDeliveryAddress) {
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
-	}
-
-	public int getStateCode() {
-		return stateCode;
-	}
-
-	public void setStateCode(int stateCode) {
-		this.stateCode = stateCode;
 	}
 
 	public String getPlaceOfSupply() {
