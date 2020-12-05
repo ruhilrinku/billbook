@@ -95,7 +95,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			
 			invoiceDetailsModel.setDiscount(details.getDiscount());
 			
-			invoiceDetailsModel.setSellerGstn(details.getSellerGstn());
+			invoiceDetailsModel.setGstn(details.getGstn());
 			invoiceDetailsModel.setPlaceOfSupply(details.getPlaceOfSupply());
 			
 			invoiceDetailsModel.setUpdateDate(details.getUpdateDate());
@@ -154,8 +154,9 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 		InvoiceDetails details = new InvoiceDetails();
 		try {
 			details.setInvoiceNumber(invoiceModel.getInvoiceNumber());
-			details.setInvoiceDate(invoiceModel.getInvoiceDate());
-			details.setUpdateDate(invoiceModel.getInvoiceDate());
+			Date date = new Date(System.currentTimeMillis());
+			details.setInvoiceDate(invoiceModel.getInvoiceDate()!=null ? invoiceModel.getInvoiceDate(): date);
+			details.setUpdateDate(invoiceModel.getInvoiceDate()!=null ? invoiceModel.getInvoiceDate(): date);
 			details.setBuyerAddress(invoiceModel.getBuyerAddress());
 			details.setBuyerDeliveryAddress(invoiceModel.getBuyerDeliveryAddress());
 			details.setBuyerGstn(invoiceModel.getBuyerGstn());
@@ -163,7 +164,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			
 			details.setDiscount(invoiceModel.getDiscount());
 			
-			details.setSellerGstn(invoiceModel.getSellerGstn());
+			details.setGstn(invoiceModel.getGstn());
 			details.setPlaceOfSupply(invoiceModel.getPlaceOfSupply());
 			
 			Set<InvoiceItems> invoiceItems = new HashSet<InvoiceItems>();
@@ -214,7 +215,7 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 				summary.setAmountPaid(transaction.getAmountPaid());
 				summary.setPaymentMode(transaction.getPaymentMode());
 				//Setting Payment date As Invoice Date
-				summary.setPaymentDate(invoiceModel.getInvoiceDate());
+				summary.setPaymentDate(invoiceModel.getInvoiceDate()!=null ? invoiceModel.getInvoiceDate(): date);
 				
 				summary.setTransactionReference(transaction.getTransactionReference());
 				summary.setChequeClearanceDate(transaction.getChequeClearanceDate());

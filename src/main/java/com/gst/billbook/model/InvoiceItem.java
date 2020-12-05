@@ -15,12 +15,39 @@ public class InvoiceItem implements Serializable {
 	private String itemCode;
 	private int quantity;
 	private double itemRate;
+	private String itemName;
 	private double igst;
 	private double cgst;
 	private double sgst;
 	private double taxableAmount;
+	private double totalAmount;
+	private String hsn;
 	
 	public InvoiceItem() {}
+	
+	public String getHsn() {
+		return hsn;
+	}
+
+	public void setHsn(String hsn) {
+		this.hsn = hsn;
+	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	
+	public double getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(double totalAmount) {
+		this.totalAmount = totalAmount;
+	}
 
 	public String getItemCode() {
 		return itemCode;

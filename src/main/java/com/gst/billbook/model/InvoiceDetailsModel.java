@@ -17,7 +17,7 @@ public class InvoiceDetailsModel implements Serializable{
 	private int invoiceNumber;
 	
 	private Date invoiceDate;
-	private String sellerGstn;
+	private String gstn;
 	private String buyerGstn;
 	private String buyerName;
 	private String buyerAddress;
@@ -33,6 +33,38 @@ public class InvoiceDetailsModel implements Serializable{
 	private Set<InvoiceTransaction> transactions;
 	
 	public InvoiceDetailsModel() {}
+	
+	//Extra Fields
+	private String transport;
+	private String vehicleNo;
+	private String grNo;
+	private String stateCode;
+	
+	public String getTransport() {
+		return transport;
+	}
+	public void setTransport(String transport) {
+		this.transport = transport;
+	}
+	public String getVehicleNo() {
+		return vehicleNo;
+	}
+	public void setVehicleNo(String vehicleNo) {
+		this.vehicleNo = vehicleNo;
+	}
+	public String getGrNo() {
+		return grNo;
+	}
+	public void setGrNo(String grNo) {
+		this.grNo = grNo;
+	}
+	public String getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+	//Extra Fields
 	
 	public double getTaxableAmount() {
 		return taxableAmount;
@@ -60,11 +92,11 @@ public class InvoiceDetailsModel implements Serializable{
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
-	public String getSellerGstn() {
-		return sellerGstn;
+	public String getGstn() {
+		return gstn;
 	}
-	public void setSellerGstn(String sellerGstn) {
-		this.sellerGstn = sellerGstn;
+	public void setGstn(String gstn) {
+		this.gstn = gstn;
 	}
 	public String getBuyerGstn() {
 		return buyerGstn;

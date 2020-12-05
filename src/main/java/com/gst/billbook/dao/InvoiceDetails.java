@@ -29,7 +29,7 @@ public class InvoiceDetails {
 	private Date invoiceDate;
 	
 	@Column(name="seller_gstn")
-	private String sellerGstn;
+	private String gstn;
 	
 	@Column(name="buyer_gstn")
 	private String buyerGstn;
@@ -77,13 +77,13 @@ public class InvoiceDetails {
 	
 	public InvoiceDetails() {}
 	
-	public InvoiceDetails(Date invoiceDate, String sellerGstn, String buyerGstn, String buyerName, String buyerAddress,
+	public InvoiceDetails(Date invoiceDate, String gstn, String buyerGstn, String buyerName, String buyerAddress,
 			String buyerDeliveryAddress, int stateCode, String placeOfSupply, double totalAmount,
 			String termAndConditions, double amountPaid, double amountDue, Date updateDate, double discount,
 			double taxableAmount) {
 		super();
 		this.invoiceDate = invoiceDate;
-		this.sellerGstn = sellerGstn;
+		this.gstn = gstn;
 		this.buyerGstn = buyerGstn;
 		this.buyerName = buyerName;
 		this.buyerAddress = buyerAddress;
@@ -130,12 +130,12 @@ public class InvoiceDetails {
 		this.invoiceDate = invoiceDate;
 	}
 
-	public String getSellerGstn() {
-		return sellerGstn;
+	public String getGstn() {
+		return gstn;
 	}
 
-	public void setSellerGstn(String sellerGstn) {
-		this.sellerGstn = sellerGstn;
+	public void setGstn(String gstn) {
+		this.gstn = gstn;
 	}
 
 	public String getBuyerGstn() {
