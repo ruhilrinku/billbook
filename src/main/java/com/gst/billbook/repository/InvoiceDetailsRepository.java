@@ -29,5 +29,5 @@ public interface InvoiceDetailsRepository extends JpaRepository<InvoiceDetails, 
 	public int nextInvoiceNum();
 	
 	@Query(nativeQuery = true, value = "Select * from state")
-	public List<State> getStates();
+	public List<Object[]> getStates();
 }

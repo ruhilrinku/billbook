@@ -319,7 +319,13 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 	public List<State> getStates() {
 		List<State> states = new ArrayList<State>();
 		try {
-			states.addAll(invoiceDetailsRepo.getStates());
+			List<Object[]> objects = invoiceDetailsRepo.getStates();
+			for(Object[] obj: objects) {
+				State state = new State();
+				state.setStateCode((Integer)obj[0]);
+				state.setName((String)obj[1]);
+				states.add(state);
+			}
 		} catch(Exception ex) {
 			LOGGER.error("Exception while fetching States: ", ex);
 			throw ex;
