@@ -28,19 +28,22 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 
 	@Override
 	public FirmDetails getFirmDetails(int firmId) {
-		FirmDetails firmDetails = new FirmDetails();
+		FirmDetails firmDetails = null;
 		try {
-			Firm firm = firmRepo.getOne(firmId);
+			Firm firm = firmRepo.getById(firmId);
 			int invoiceNum = invoiceDetailRepo.nextInvoiceNum();
-			firmDetails.setInvoiceNumber(invoiceNum);
-			firmDetails.setTradeName(firm.getTradeName());
-			firmDetails.setGstn(firm.getGstn());
-			firmDetails.setEmail(firm.getEmail());
-			firmDetails.setBusinessDesc(firm.getBusinessDesc());
-			firmDetails.setBusinessAddress(firm.getBusinessAddress());
-			firmDetails.setLegalName(firm.getLegalName());
-			firmDetails.setContactNo(firm.getContactNo());
-			firmDetails.setStateCode(firm.getStateCode());
+			if(firm !=null) {
+				firmDetails = new FirmDetails();
+				firmDetails.setInvoiceNumber(invoiceNum);
+				firmDetails.setTradeName(firm.getTradeName());
+				firmDetails.setGstn(firm.getGstn());
+				firmDetails.setEmail(firm.getEmail());
+				firmDetails.setBusinessDesc(firm.getBusinessDesc());
+				firmDetails.setBusinessAddress(firm.getBusinessAddress());
+				firmDetails.setLegalName(firm.getLegalName());
+				firmDetails.setContactNo(firm.getContactNo());
+				firmDetails.setStateCode(firm.getStateCode());
+			}
 		} catch(Exception ex) {
 			throw ex;
 		}

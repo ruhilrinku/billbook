@@ -11,4 +11,7 @@ public interface FirmRepository extends JpaRepository<Firm, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from Firm_details where firm_id = ?1 and legal_name = ?2 ")
 	public Firm getFirmDetailsByLegalName(int firmId, String legalName);
+	
+	@Query(nativeQuery = true, value = "select * from Firm_details where firm_id = ?1")
+	public Firm getById(int firmId);
 }
