@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gst.billbook.dao.InvoiceDetails;
 import com.gst.billbook.dao.InvoiceItems;
 import com.gst.billbook.dao.InvoiceTransactionSummary;
+import com.gst.billbook.dao.State;
 import com.gst.billbook.model.InvoiceDetailsModel;
 import com.gst.billbook.model.InvoiceItem;
 import com.gst.billbook.model.InvoiceTransaction;
@@ -42,6 +43,23 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			throw ex;
 		}
 		return detailModel;
+	}
+	
+	@Override
+	public List<InvoiceDetailsModel> getInvoices() {
+		List<InvoiceDetails> invoices = null;
+		List<InvoiceDetailsModel> models = new ArrayList<InvoiceDetailsModel>();
+		try {
+			invoices = invoiceDetailsRepo.findAll();
+			for(InvoiceDetails invoice: invoices) {
+				InvoiceDetailsModel detailModel = convertDAOtoModel(invoice);
+				models.add(detailModel);
+			}
+		} catch(Exception ex) {
+			LOGGER.error("Not able to fetch Invoice details: ", ex);
+			throw ex;
+		}
+		return models;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED)
@@ -78,9 +96,8 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			invoiceDetailsModel.setDiscount(details.getDiscount());
 			
 			invoiceDetailsModel.setSellerGstn(details.getSellerGstn());
-			invoiceDetailsModel.setNameOfState(details.getNameOfState());
+			invoiceDetailsModel.setStateCode(details.getStateCode());
 			invoiceDetailsModel.setPlaceOfSupply(details.getPlaceOfSupply());
-			invoiceDetailsModel.setTermAndConditions(details.getTermAndConditions());
 			
 			invoiceDetailsModel.setUpdateDate(details.getUpdateDate());
 			
@@ -144,9 +161,8 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 			details.setDiscount(invoiceModel.getDiscount());
 			
 			details.setSellerGstn(invoiceModel.getSellerGstn());
-			details.setNameOfState(invoiceModel.getNameOfState());
+			details.setStateCode(invoiceModel.getStateCode());
 			details.setPlaceOfSupply(invoiceModel.getPlaceOfSupply());
-			details.setTermAndConditions(invoiceModel.getTermAndConditions());
 			
 			details.setUpdateDate(invoiceModel.getUpdateDate());
 			
@@ -169,20 +185,18 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 				invoiceItem.setSgst(item.getSgst());
 				
 				//Taxable amount and GST Calculation
-				taxableAmount = item.getQuantity() * item.getItemRate();
-				invoiceItem.setTaxableAmount(taxableAmount);
-
-				if(invoiceModel.getPlaceOfSupply().equals(invoiceModel.getNameOfState())) {
-					gstAmount = taxableAmount * item.getCgst() + taxableAmount * item.getSgst();
-				}
-				else {
-					gstAmount = taxableAmount * item.getIgst();
-				}
-				totalTaxableAmount = totalTaxableAmount + taxableAmount;
-				totalAmount = totalAmount + taxableAmount + gstAmount;
-				
-				taxableAmount = 0;
-				gstAmount = 0;
+				/*
+				 * taxableAmount = item.getQuantity() * item.getItemRate();
+				 * invoiceItem.setTaxableAmount(taxableAmount);
+				 * 
+				 * if(invoiceModel.getPlaceOfSupply().equals(invoiceModel.getNameOfState())) {
+				 * gstAmount = taxableAmount * item.getCgst() + taxableAmount * item.getSgst();
+				 * } else { gstAmount = taxableAmount * item.getIgst(); } totalTaxableAmount =
+				 * totalTaxableAmount + taxableAmount; totalAmount = totalAmount + taxableAmount
+				 * + gstAmount;
+				 * 
+				 * taxableAmount = 0; gstAmount = 0;
+				 */
 				
 				invoiceItems.add(invoiceItem);
 			}
@@ -295,6 +309,18 @@ public class InvoiceDetailsServiceImpl implements InvoiceDetailsService {
 		}
 		
 		return salesInvoiceList;
+	}
+
+	@Override
+	public List<State> getStates() {
+		List<State> states = new ArrayList<State>();
+		try {
+			states.addAll(invoiceDetailsRepo.getStates());
+		} catch(Exception ex) {
+			LOGGER.error("Exception while fetching States: ", ex);
+			throw ex;
+		}
+		return states;
 	}
 
 }

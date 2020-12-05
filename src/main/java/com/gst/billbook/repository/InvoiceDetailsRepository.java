@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.gst.billbook.dao.InvoiceDetails;
 import com.gst.billbook.dao.InvoiceItems;
 import com.gst.billbook.dao.InvoiceTransactionSummary;
+import com.gst.billbook.dao.State;
 
 @Repository
 public interface InvoiceDetailsRepository extends JpaRepository<InvoiceDetails, Integer> {
@@ -23,4 +24,10 @@ public interface InvoiceDetailsRepository extends JpaRepository<InvoiceDetails, 
 	
 	@Query(nativeQuery = true, value = "select invoice_number, invoice_date, buyer_gstn, buyer_name, pos, taxable_amount, total_amount from invoice_details where invoice_date between ?1 and ?2")
 	public List<Object[]> getInvoiceDetailForPeriod(Date invoiceStartDate, Date invoiceEndDate);
+	
+	@Query(nativeQuery = true, value = "select next_val from invoice_num_seq")
+	public int nextInvoiceNum();
+	
+	@Query(nativeQuery = true, value = "Select * from state")
+	public List<State> getStates();
 }

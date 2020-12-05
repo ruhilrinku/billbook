@@ -10,12 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gst.billbook.dao.Firm;
 import com.gst.billbook.model.FirmDetails;
 import com.gst.billbook.repository.FirmRepository;
+import com.gst.billbook.repository.InvoiceDetailsRepository;
 
 @Service
 public class FirmDetailServiceImpl implements FirmDetailService {
 	
 	@Autowired
 	private FirmRepository firmRepo;
+	
+	@Autowired
+	private InvoiceDetailsRepository invoiceDetailRepo;
 
 	@Override
 	public List<FirmDetails> getFirmDetails() {
@@ -27,16 +31,16 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 		FirmDetails firmDetails = new FirmDetails();
 		try {
 			Firm firm = firmRepo.getOne(firmId);
+			int invoiceNum = invoiceDetailRepo.nextInvoiceNum();
+			firmDetails.setInvoiceNumber(invoiceNum);
 			firmDetails.setTradeName(firm.getTradeName());
-			firmDetails.setLegalName(firm.getLegalName());
-			firmDetails.setIfscCode(firm.getIfscCode());
-			firmDetails.setAccountNumber(firm.getAccountNumber());
 			firmDetails.setGstn(firm.getGstn());
 			firmDetails.setEmail(firm.getEmail());
-			firmDetails.setAccountNumber(firm.getAccountNumber());
-			firmDetails.setBankName(firm.getBankName());
 			firmDetails.setBusinessDesc(firm.getBusinessDesc());
 			firmDetails.setBusinessAddress(firm.getBusinessAddress());
+			firmDetails.setLegalName(firm.getLegalName());
+			firmDetails.setContactNo(firm.getContactNo());
+			firmDetails.setStateCode(firm.getStateCode());
 		} catch(Exception ex) {
 			throw ex;
 		}
@@ -49,17 +53,13 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 		Firm firm = new Firm();
 		try {
 			firm.setTradeName(firmDetails.getTradeName());
-			firm.setLegalName(firmDetails.getLegalName());
-			firm.setIfscCode(firmDetails.getIfscCode());
-			firm.setAccountNumber(firmDetails.getAccountNumber());
 			firm.setGstn(firmDetails.getGstn());
 			firm.setEmail(firmDetails.getEmail());
-			firm.setAccountNumber(firmDetails.getAccountNumber());
-			firm.setBankName(firmDetails.getBankName());
 			firm.setBusinessDesc(firmDetails.getBusinessDesc());
 			firm.setBusinessAddress(firmDetails.getBusinessAddress());
-			firm.setRegistrationDate(firmDetails.getRegistrationDate());
-			
+			firm.setLegalName(firmDetails.getLegalName());
+			firm.setStateCode(firmDetails.getStateCode());
+			firm.setContactNo(firmDetails.getContactNo());
 			firm = firmRepo.save(firm);
 			
 		} catch(Exception ex) {
@@ -77,12 +77,8 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 			firm = firmRepo.getFirmDetailsByLegalName(firmId, firmDetails.getLegalName());
 			firm.setTradeName(firmDetails.getTradeName());
 			firm.setLegalName(firmDetails.getLegalName());
-			firm.setIfscCode(firmDetails.getIfscCode());
-			firm.setAccountNumber(firmDetails.getAccountNumber());
 			firm.setGstn(firmDetails.getGstn());
 			firm.setEmail(firmDetails.getEmail());
-			firm.setAccountNumber(firmDetails.getAccountNumber());
-			firm.setBankName(firmDetails.getBankName());
 			firm.setBusinessDesc(firmDetails.getBusinessDesc());
 			firm.setBusinessAddress(firmDetails.getBusinessAddress());
 			

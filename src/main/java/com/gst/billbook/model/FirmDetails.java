@@ -14,25 +14,23 @@ public class FirmDetails implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String gstn;
-	private String legalName;
 	private String tradeName;
+	private String legalName;
 	private String businessDesc;
 	private String businessAddress;
 	private long contactNo;
 	private String email;
-	private String bankName;
-	private String accountNumber;
-	private String ifscCode;
-	private Date registrationDate;
+	private String termAndConditions;
+	private String notes;
+	private long invoiceNumber;
+	private int stateCode;
 	
-	public FirmDetails(){}
-	
-	public Date getRegistrationDate() {
-		return registrationDate;
+	public int getStateCode() {
+		return stateCode;
 	}
 
-	public void setRegistrationDate(Date registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
 	}
 
 	public String getGstn() {
@@ -41,14 +39,6 @@ public class FirmDetails implements Serializable {
 
 	public void setGstn(String gstn) {
 		this.gstn = gstn;
-	}
-
-	public String getLegalName() {
-		return legalName;
-	}
-
-	public void setLegalName(String legalName) {
-		this.legalName = legalName;
 	}
 
 	public String getTradeName() {
@@ -90,29 +80,37 @@ public class FirmDetails implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getBankName() {
-		return bankName;
+	
+	public String getLegalName() {
+		return legalName;
 	}
 
-	public void setBankName(String bankName) {
-		this.bankName = bankName;
+	public void setLegalName(String legalName) {
+		this.legalName = legalName;
 	}
 
-	public String getAccountNumber() {
-		return accountNumber;
+	public String getTermAndConditions() {
+		return termAndConditions;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+	public void setTermAndConditions(String termAndConditions) {
+		this.termAndConditions = termAndConditions;
 	}
 
-	public String getIfscCode() {
-		return ifscCode;
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setIfscCode(String ifscCode) {
-		this.ifscCode = ifscCode;
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public long getInvoiceNumber() {
+		return invoiceNumber;
+	}
+
+	public void setInvoiceNumber(long invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 	
 	public static FirmDetails toObject(String json) {

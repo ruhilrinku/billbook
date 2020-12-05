@@ -51,6 +51,45 @@ public class Firm {
 	@Column(name="registration_date")
 	private Date registrationDate;
 	
+	@Column(name="notes")
+	public String notes;
+	
+	@Column(name="terms_and_conditions")
+	public String termsAndConditions;
+	
+	@Column(name="bank_account_holder")
+	private String accountHolderName;
+	
+	@Column(name="bank_address")
+	private String bankAddress;
+	
+	@Column(name="state_code")
+	private int stateCode;
+	
+	public int getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getTermsAndConditions() {
+		return termsAndConditions;
+	}
+
+	public void setTermsAndConditions(String termsAndConditions) {
+		this.termsAndConditions = termsAndConditions;
+	}
+
 	public Date getRegistrationDate() {
 		return registrationDate;
 	}
@@ -164,11 +203,4 @@ public class Firm {
 	public void setBankAddress(String bankAddress) {
 		this.bankAddress = bankAddress;
 	}
-
-	@Column(name="bank_account_holder")
-	private String accountHolderName;
-	
-	@Column(name="bank_address")
-	private String bankAddress;
-	
 }

@@ -28,13 +28,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gst.billbook.dao.State;
 import com.gst.billbook.model.InvoiceDetailsModel;
 import com.gst.billbook.model.InvoiceItem;
 import com.gst.billbook.model.InvoiceTransaction;
 import com.gst.billbook.model.SalesInvoice;
 import com.gst.billbook.service.InvoiceDetailsService;
 
-import java.io.FileOutputStream;
 import java.sql.Date;
 
 @RestController
@@ -52,6 +52,18 @@ public class InvoiceDetailsController {
 		try {
 			detailsModel = invoiceDetailService.getInvoiceDetails(invoiceNumber);
 			return new ResponseEntity<>(detailsModel, HttpStatus.OK);
+		} catch(Exception ex) {
+			LOGGER.error("Failed to fetch details: ", ex);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping(path="/invoiceDetails/list", produces = "application/json")
+	public ResponseEntity<List<InvoiceDetailsModel>> getInvoices() {
+		List<InvoiceDetailsModel> models = null;
+		try {
+			models = invoiceDetailService.getInvoices();
+			return new ResponseEntity<>(models, HttpStatus.OK);
 		} catch(Exception ex) {
 			LOGGER.error("Failed to fetch details: ", ex);
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -182,4 +194,16 @@ public class InvoiceDetailsController {
         outputStream.close();
 
 	} 
+	
+	@GetMapping("/states")
+	public ResponseEntity<List<State>> getStates() {
+		List<State> states = null;
+		try {
+			states = invoiceDetailService.getStates();
+		} catch(Exception ex) {
+			LOGGER.error("Failed to generate Sales Invoice Report: ", ex);
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<List<State>>(states, HttpStatus.OK);
+	}
 }

@@ -44,7 +44,7 @@ public class InvoiceDetails {
 	private String buyerDeliveryAddress;
 	
 	@Column(name="name_of_state")
-	private String nameOfState;
+	private int stateCode;
 	
 	@Column(name="pos")
 	private String placeOfSupply;
@@ -81,7 +81,7 @@ public class InvoiceDetails {
 	public InvoiceDetails() {}
 	
 	public InvoiceDetails(Date invoiceDate, String sellerGstn, String buyerGstn, String buyerName, String buyerAddress,
-			String buyerDeliveryAddress, String nameOfState, String placeOfSupply, double totalAmount,
+			String buyerDeliveryAddress, int stateCode, String placeOfSupply, double totalAmount,
 			String termAndConditions, double amountPaid, double amountDue, Date updateDate, double discount,
 			double taxableAmount) {
 		super();
@@ -91,7 +91,7 @@ public class InvoiceDetails {
 		this.buyerName = buyerName;
 		this.buyerAddress = buyerAddress;
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
-		this.nameOfState = nameOfState;
+		this.stateCode = stateCode;
 		this.placeOfSupply = placeOfSupply;
 		this.totalAmount = totalAmount;
 		this.termAndConditions = termAndConditions;
@@ -174,12 +174,12 @@ public class InvoiceDetails {
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
 	}
 
-	public String getNameOfState() {
-		return nameOfState;
+	public int getStateCode() {
+		return stateCode;
 	}
 
-	public void setNameOfState(String nameOfState) {
-		this.nameOfState = nameOfState;
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
 	}
 
 	public String getPlaceOfSupply() {

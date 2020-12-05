@@ -22,15 +22,18 @@ public class InvoiceDetailsModel implements Serializable{
 	private String buyerName;
 	private String buyerAddress;
 	private String buyerDeliveryAddress;
-	private String nameOfState;
+	private int stateCode;
 	private String placeOfSupply;
 	private double totalAmount;
-	private String termAndConditions;
 	private double amountPaid;
 	private double amountDue;
 	private Date updateDate;
 	private double discount;
 	private double taxableAmount;
+	private Set<InvoiceItem> items;
+	private Set<InvoiceTransaction> transactions;
+	
+	public InvoiceDetailsModel() {}
 	
 	public double getTaxableAmount() {
 		return taxableAmount;
@@ -39,9 +42,6 @@ public class InvoiceDetailsModel implements Serializable{
 		this.taxableAmount = taxableAmount;
 	}
 
-	private Set<InvoiceItem> items;
-	private Set<InvoiceTransaction> transactions;
-	
 	public Set<InvoiceItem> getItems() {
 		return items;
 	}
@@ -54,7 +54,7 @@ public class InvoiceDetailsModel implements Serializable{
 	public void setTransactions(Set<InvoiceTransaction> transactions) {
 		this.transactions = transactions;
 	}
-	public InvoiceDetailsModel() {}
+	
 	public Date getInvoiceDate() {
 		return invoiceDate;
 	}
@@ -91,11 +91,11 @@ public class InvoiceDetailsModel implements Serializable{
 	public void setBuyerDeliveryAddress(String buyerDeliveryAddress) {
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
 	}
-	public String getNameOfState() {
-		return nameOfState;
+	public int getStateCode() {
+		return stateCode;
 	}
-	public void setNameOfState(String nameOfState) {
-		this.nameOfState = nameOfState;
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
 	}
 	public String getPlaceOfSupply() {
 		return placeOfSupply;
@@ -109,12 +109,7 @@ public class InvoiceDetailsModel implements Serializable{
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
-	public String getTermAndConditions() {
-		return termAndConditions;
-	}
-	public void setTermAndConditions(String termAndConditions) {
-		this.termAndConditions = termAndConditions;
-	}
+
 	public double getAmountPaid() {
 		return amountPaid;
 	}
