@@ -20,8 +20,8 @@ import javax.persistence.Table;
 public class InvoiceDetails {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_num_generator")
-	@SequenceGenerator(name="invoice_num_generator", sequenceName = "invoice_num_seq")
+	@GeneratedValue(generator = "invoice_num_generator")
+	@SequenceGenerator(name="invoice_num_generator", sequenceName = "invoice_num_seq", initialValue = 1, allocationSize = 1)
 	@Column(name="invoice_number")
 	private int invoiceNumber;
 	
@@ -48,9 +48,6 @@ public class InvoiceDetails {
 	
 	@Column(name="total_amount")
 	private double totalAmount;
-	
-	@Column(name="term_and_conditions")
-	private String termAndConditions;
 	
 	@Column(name="amount_paid")
 	private double amountPaid;
@@ -90,7 +87,6 @@ public class InvoiceDetails {
 		this.buyerDeliveryAddress = buyerDeliveryAddress;
 		this.placeOfSupply = placeOfSupply;
 		this.totalAmount = totalAmount;
-		this.termAndConditions = termAndConditions;
 		this.amountPaid = amountPaid;
 		this.amountDue = amountDue;
 		this.updateDate = updateDate;
@@ -184,14 +180,6 @@ public class InvoiceDetails {
 
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
-	}
-
-	public String getTermAndConditions() {
-		return termAndConditions;
-	}
-
-	public void setTermAndConditions(String termAndConditions) {
-		this.termAndConditions = termAndConditions;
 	}
 
 	public double getAmountPaid() {

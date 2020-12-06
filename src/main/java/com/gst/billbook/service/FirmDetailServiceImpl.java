@@ -43,6 +43,8 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 				firmDetails.setLegalName(firm.getLegalName());
 				firmDetails.setContactNo(firm.getContactNo());
 				firmDetails.setStateCode(firm.getStateCode());
+				firmDetails.setNotes(firm.getNotes());
+				firmDetails.setTermAndConditions(firm.getTermsAndConditions());
 			}
 		} catch(Exception ex) {
 			throw ex;
@@ -63,6 +65,8 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 			firm.setLegalName(firmDetails.getLegalName());
 			firm.setStateCode(firmDetails.getStateCode());
 			firm.setContactNo(firmDetails.getContactNo());
+			firm.setNotes(firmDetails.getNotes());
+			firm.setTermsAndConditions(firmDetails.getTermAndConditions());
 			firm = firmRepo.save(firm);
 			
 		} catch(Exception ex) {
@@ -84,6 +88,10 @@ public class FirmDetailServiceImpl implements FirmDetailService {
 			firm.setEmail(firmDetails.getEmail());
 			firm.setBusinessDesc(firmDetails.getBusinessDesc());
 			firm.setBusinessAddress(firmDetails.getBusinessAddress());
+			firm.setNotes(firmDetails.getNotes());
+			firm.setTermsAndConditions(firmDetails.getTermAndConditions());
+			firmDetails.setContactNo(firm.getContactNo());
+			firmDetails.setStateCode(firm.getStateCode());
 			
 			firmRepo.save(firm);
 			

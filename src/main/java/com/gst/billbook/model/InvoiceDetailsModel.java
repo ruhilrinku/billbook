@@ -39,6 +39,8 @@ public class InvoiceDetailsModel implements Serializable{
 	private String vehicleNo;
 	private String grNo;
 	private String stateCode;
+	private String notes;
+	private String termsAndConditions;
 	
 	public String getTransport() {
 		return transport;
@@ -64,6 +66,19 @@ public class InvoiceDetailsModel implements Serializable{
 	public void setStateCode(String stateCode) {
 		this.stateCode = stateCode;
 	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	public String getTermsAndConditions() {
+		return termsAndConditions;
+	}
+	public void setTermsAndConditions(String termsAndConditions) {
+		this.termsAndConditions = termsAndConditions;
+	}
+	
 	//Extra Fields
 	
 	public double getTaxableAmount() {
